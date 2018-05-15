@@ -1,0 +1,22 @@
+{
+	"name": "wmde/fundraising-matomo",
+	"description": "WMDE Matomo repository",
+	"homepage": "https://github.com/wmde/fundraising-matomo",
+	"license": "GPL-2.0+",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Tim Eulitz",
+			"email": "tim.eulitz@wikimedia.de"
+		}
+	],
+	"require": {
+		"wmde/campaign-visitors-by-time": "dev-master"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/wmde/CampaignVisitorsByTime"
+		}
+	]
+}

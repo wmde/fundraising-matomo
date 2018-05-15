@@ -1,0 +1,48 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "b3bedacb557443e78fddef18c30ba0c0",
+    "packages": [
+        {
+            "name": "wmde/campaign-visitors-by-time",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wmde/CampaignVisitorsByTime.git",
+                "reference": "7509efa67267dd71fc0aaae13111d767cebea65f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wmde/CampaignVisitorsByTime/zipball/7509efa67267dd71fc0aaae13111d767cebea65f",
+                "reference": "7509efa67267dd71fc0aaae13111d767cebea65f",
+                "shasum": ""
+            },
+            "type": "library",
+            "authors": [
+                {
+                    "name": "Tim Eulitz",
+                    "email": "tim.eulitz@wikimedia.de"
+                }
+            ],
+            "description": "This plugin aggregates visitors per campaign/keyword in a more detailed interval of 15 minutes.",
+            "support": {
+                "source": "https://github.com/wmde/CampaignVisitorsByTime/tree/master",
+                "issues": "https://github.com/wmde/CampaignVisitorsByTime/issues"
+            },
+            "time": "2018-05-15T07:07:28+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "wmde/campaign-visitors-by-time": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
