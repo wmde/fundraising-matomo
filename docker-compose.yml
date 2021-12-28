@@ -12,7 +12,7 @@ services:
     networks:
     - back
   app:
-    image: matomo:3.5.0-fpm
+    image: matomo:3.14-fpm
     links:
       - db
     volumes:
