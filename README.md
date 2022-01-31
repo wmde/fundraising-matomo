@@ -29,9 +29,10 @@ After running `docker-compose up`, Matomo is now accessible via:
 Initially Matomo will be in a setup mode. When prompted for database credentials, configure it as follows:
 
     Database Server: db
-    Login: root
-    Password: piwik
-    Database Name: piwik
+    Login: matomo
+    Password: omotan
+    Database Name: matomo
+	Database Prefix:
 
 When prompted for a website URL, use (or whatever port you set in your .env file):
 
