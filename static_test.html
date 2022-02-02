@@ -18,9 +18,35 @@
         })();
     </script>
     <!-- End Matomo Code -->
+	<style>
+		body {
+			padding: 2em;
+		}
+		main {
+			max-width: 960px;
+			margin: 0 auto;
+		}	
+	</style>
 </head>
 <body>
-    <p>Open this file in your browser and head to <a href="http://localhost:8090">http://localhost:8090</a> to see the tracking information.</p>
-    <p>Here is a bogus campagin (Open in incognito tab / new browser): <a href="static_test.html?pk_campaign=Test_Campagin01">Test_Campagin01</a></p>
+	<main>
+		<h2>Matomo "Impression Generation" test page</h2>
+		<p>This file logs impressions to Matomo. <br \>
+		Go to <a href="http://localhost:8090">http://localhost:8090</a> to see
+		the Matomo dashboard and check if the impressions come in.</p>
+
+		<h4>Adding tracking parameters</h4>
+		<p>You can add campaign and keyword parameters to the URL. In a
+		default Matomo 4 installation, the parameter names are `mtm_campaign` and
+		`mtm_keyword`. You can look up other allowed parameter names (like
+		`piwik_campaign`, `pk_campaign` and even Google-Analytics-style
+		`utm_campaign`) in the file `global.ini.php` of the Matomo
+		configuration. </p>
+
+		<p>Here is a link to this page with test campaign and keyword parameters attached:
+		<a
+			href="static_test.html?pk_campaign=Test_Campaign01&piwik_keyword=Test_Keyword_007">Test_Campaign
+		and Keyword</a></p>
+	</main>
 </body>
 </html>
