@@ -22,7 +22,8 @@ services:
       - db
     volumes:
       - ./config:/var/www/html/config
-      - ./vendor/wmde/campaign-visitors-by-time:/var/www/html/plugins/CampaignVisitorsByTime
+        #- ./vendor/wmde/campaign-visitors-by-time:/var/www/html/plugins/CampaignVisitorsByTime
+      - ../CampaignVisitorsByTime:/var/www/html/plugins/CampaignVisitorsByTime
     working_dir: /var/www/html
     networks:
     - back
@@ -32,6 +33,7 @@ services:
       - "${HOST_PORT}:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./static_test.html:/var/www/html/static_test.html
     links:
       - app
     volumes_from:

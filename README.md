@@ -2,25 +2,29 @@
 
 This repository allows for a local Docker-based Matomo instance running WMDE plugins. 
 
-Make sure to disable your ad-blocker for your localhost as you may run into issues otherwise.
+## Installation and configuration
 
-## Installation
+### docker-compose environment
 
 For setting up this repository you need to have Docker and [docker-compose](https://docs.docker.com/compose/) installed.
 
 Start by copying the `.env.dist` file as `.env` in the project directory.
-You may want to check the settings the `.env` file provides and adapt them to your needs as you see fit. 
-Especially the localhost port and the frequency of the Matomo cron may be relevant to you.
+You may want to check the settings the `.env` file provides and adapt them to your needs as you see fit.  
 
-Next, install the Composer dependencies:
+Change the localhost port if it's already used bay a different
+application.  
 
-    composer install
+Chnage the frequency of the Matomo "cron" script when you're testing the
+archiver functionality.
 
-Everything else is installed via docker-compose:
+
+### Running the test environment
+
+Start the database, web server and PHP with the command
 
     docker-compose up
 
-## Application Configuration
+## Matomo Configuration
 
 After running `docker-compose up`, Matomo is now accessible via:
 
@@ -59,12 +63,58 @@ With:
 
 (You may have to update this value to the port which you set in your .env file).
 
-## Enable custom plugins manually
+## Installing custom plugins 
 
-Custom plugins are disabled by default. Head to the system configuration and enable them manually under System -> Plugins.
-See `composer.json` for a list of installed plugins.
+If you want to test the functionality, install the composer dependencies with a local composer binary:
 
-## Simple static testing.
+    composer install
 
-A quick static test can be performed by directly accessing `static_test.html` in this directory. 
-Some IDEs like PHPStorm may allow you to use their `run` functionality which helps with keeping the localhost domain when testing.
+OR with the composer Docker image:
+
+	docker run --rm -v $(pwd):/app -w /app composer install
+
+
+## Using a local version of the plugin
+
+If you're developing the plugin on your local machine and don't want to
+push your changes to the repository and run `composer update` to test, you
+can use the `docker-compose.yml` file to mount your local version in the
+container:
+
+In the `volumes` section of the `app` service, change the host part of the
+volume that mounts to `/var/www/html/plugins/PLUGIN_NAME` to point to an 
+absolute or relative path on your machine.
+
+Example for a local version of the `CampaignVisitorsByTime` plugin, where
+the directory `CampaignVisitorsByTime` is at the same level as
+`fundraising-matomo` (this repository)
+
+```
+    volumes:
+      - ./config:/var/www/html/config
+      - ../CampaignVisitorsByTime:/var/www/html/plugins/CampaignVisitorsByTime
+```
+
+When changing volumes, you need to stop and start the containers with
+`docker-compose stop` and `docker-compose start`.
+
+
+## Enable custom plugins in Matomo
+
+Custom plugins are disabled by default. Log in to your local Matomo, head
+to the system configuration and enable them manually under System ->
+Plugins. 
+
+## Creating page impressions
+
+The web server serves Matomo and a static page that you can use to create
+page impressions for testing. Go to
+[http://localhost:8090/static_test.html](http://localhost:8090/static_test.html) to see the test page.
+Reload it to create page impressions. 
+
+Remove the cookies starting with `_pk.id` and `_pk_session` to get a new
+unique user identifier from Matomo.
+
+**Make sure to disable your ad-blocker for your localhost as you may run into issues otherwise!**
+
+
