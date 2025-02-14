@@ -1,4 +1,37 @@
 services:
+
+  app:
+    image: "registry.gitlab.com/fun-tech/fundraising-frontend-docker:latest"
+    volumes:
+      - ./matomo:/var/www/html
+      - ../CampaignVisitorsByTime:/var/www/html/plugins/CampaignVisitorsByTime
+    working_dir: /var/www/html
+
+  cron:
+    image: "registry.gitlab.com/fun-tech/fundraising-frontend-docker:latest"
+    volumes_from:
+      - app
+    entrypoint: |
+      bash -c 'bash -s <<EOF
+      trap "break;exit" SIGHUP SIGINT SIGTERM
+      while /bin/true; do
+        su -s "/bin/bash" -c "/usr/local/bin/php /var/www/html/console core:archive" www-data
+        sleep ${CRON_RUNTIME_SECONDS}
+      done
+      EOF'
+
+  web:
+    image: nginx
+    ports:
+      - "${HOST_PORT}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./static_test.html:/var/www/html/static_test.html
+    volumes_from:
+      - app
+    environment:
+      - VIRTUAL_HOST
+
   db:
     image: mariadb:10.6
     volumes:
@@ -10,45 +43,6 @@ services:
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
-
-  app:
-    image: matomo:4.16-fpm
-    links:
-      - db
-    volumes:
-      - ./config:/var/www/html/config
-        #- ./vendor/wmde/campaign-visitors-by-time:/var/www/html/plugins/CampaignVisitorsByTime
-      - ../CampaignVisitorsByTime:/var/www/html/plugins/CampaignVisitorsByTime
-    working_dir: /var/www/html
-
-  web:
-    image: nginx
-    ports:
-      - "${HOST_PORT}:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./static_test.html:/var/www/html/static_test.html
-    links:
-      - app
-    volumes_from:
-      - app
-    environment:
-      - VIRTUAL_HOST
-
-  cron:
-    image: matomo:4.16-fpm
-    links:
-      - db
-    volumes_from:
-      - app
-    entrypoint: |
-      bash -c 'bash -s <<EOF
-      trap "break;exit" SIGHUP SIGINT SIGTERM
-      while /bin/true; do
-        su -s "/bin/bash" -c "/usr/local/bin/php /var/www/html/console core:archive" www-data
-        sleep ${CRON_RUNTIME_SECONDS}
-      done
-      EOF'
 
 
 volumes:
