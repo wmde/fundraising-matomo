@@ -11,10 +11,10 @@
         _paq.push(['enableLinkTracking']);
         (function() {
             var u="//localhost:8090/";
-            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
             _paq.push(['setSiteId', '1']);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
         })();
     </script>
     <!-- End Matomo Code -->
@@ -25,11 +25,19 @@
 		main {
 			max-width: 960px;
 			margin: 0 auto;
-		}	
+		}
+		.admonition {
+			background-color: #f0f0f0;
+			padding: 1em;
+			border: 1px solid #ccc;
+		}
 	</style>
 </head>
 <body>
 	<main>
+		<p class="admonition">⚠️ Please check if your ad blocker is active, otherwise you 
+			won't be generating impressions with this page!</p>
+
 		<h2>Matomo "Impression Generation" test page</h2>
 		<p>This file logs impressions to Matomo. <br \>
 		Go to <a href="http://localhost:8090">http://localhost:8090</a> to see
@@ -37,11 +45,12 @@
 
 		<h4>Adding tracking parameters</h4>
 		<p>You can add campaign and keyword parameters to the URL. In a
-		default Matomo 4 installation, the parameter names are `mtm_campaign` and
-		`mtm_keyword`. You can look up other allowed parameter names (like
-		`piwik_campaign`, `pk_campaign` and even Google-Analytics-style
-		`utm_campaign`) in the file `global.ini.php` of the Matomo
-		configuration. </p>
+		default Matomo installation, the parameter names are <code>mtm_campaign</code> and
+		<code>mtm_keyword</code>. You can look up other allowed parameter names (like
+		<code>piwik_campaign</code>, <code>pk_campaign</code> and even Google-Analytics-style
+		<code>utm_campaign</code>) in the file <code>global.ini.php</code> of the Matomo
+		configuration Look for the config keys <code>campaign_var_name</code> and 
+		<code>keyword_var_name</code>. </p>
 
 		<p>Here is a link to this page with test campaign and keyword parameters attached:
 		<a
